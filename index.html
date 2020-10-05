@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+<script charset="UTF-8" type="text/javascript">
+window["adrum-start-time"] = new Date().getTime();
+window.reportWS = () => {}
+(function(config){
+    config.appKey = "";
+    config.adrumExtUrlHttp = "http://cdn.appdynamics.com";
+    config.adrumExtUrlHttps = "https://cdn.appdynamics.com";
+    config.beaconUrlHttp = "http://fra-col.eum-appdynamics.com";
+    config.beaconUrlHttps = "https://fra-col.eum-appdynamics.com";
+    config.useHTTPSAlways = true;
+    config.page = {"captureTitle":true};
+    config.fetch = true;
+    window.reportWS = (obj) => {
+          var ajaxT = new ADRUM.events.Ajax();
+	  ajaxT.url(obj.url.indexOf("http") > -1 ? obj.url : "http://" + obj.url);
+          ajaxT.markSendTime(obj.sendTime ? obj.sendTime : 0);
+          ajaxT.markFirstByteTime(obj.firstByteTime ? obj.firstByteTime : 0);
+          ajaxT.markRespAvailTime(obj.respAvailTime ? obj.respAvailTime : 0);
+          ajaxT.markRespProcTime(obj.respProcTime ? obj.respProcTime : 0);
+          ADRUM.report(ajaxT);
+    }
+})(window["adrum-config"] || (window["adrum-config"] = {}));
+</script>
+<script src="//cdn.appdynamics.com/adrum/adrum-20.6.0.3177.js"></script>	  
+    <title>WebSocket Example</title>
+    <script src="client.js"></script>
+  </head>
+  <body>
+    <h1>WebSocket Example</h1>
+    <p>Open your browser's developer tools to see client/server activity.</p>
+  </body>
+</html>
